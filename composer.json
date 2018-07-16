@@ -1,0 +1,16 @@
+{
+    "name": "jinjie/silverstripe-marketplace",
+    "description": "A very basic marketplace for SilverStripe 4",
+    "type": "silverstripe-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kong Jin Jie",
+            "email": "jinjie@swiftdev.sg"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "^4.1",
+        "jinjie/silverstripe-valitron": "^1"
+    }
+}
