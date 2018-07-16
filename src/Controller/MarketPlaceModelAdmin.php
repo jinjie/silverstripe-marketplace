@@ -23,4 +23,6 @@ class MarketPlaceModelAdmin extends ModelAdmin
     private static $url_segment = 'marketplace';
 
     private static $menu_title = 'Marketplace';
+
+    private static $menu_icon = "jinjie/silverstripe-marketplace: res/images/store.png";
 }
