@@ -66,6 +66,13 @@ class Category extends DataObject
         return $fields;
     }
 
+    public function getAllListings()
+    {
+        /**
+         * @todo Return all listings under this category and it's children
+         */
+    }
+
     public function getValitron()
     {
         $v = new \Valitron\Validator([
