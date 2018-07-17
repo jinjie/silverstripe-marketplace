@@ -9,6 +9,7 @@
 
 namespace SwiftDevLabs\MarketPlace\Model;
 
+use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Control\Director;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
@@ -16,10 +17,9 @@ use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
-use SilverStripe\Versioned\Versioned;
-use SwiftDevLabs\Marketplace\Form\ListingImageUploadField;
 use SwiftDevLabs\MarketPlace\Model\Category;
 use SwiftDevLabs\MarketPlace\Model\ListingImage;
+use SwiftDevLabs\Marketplace\Form\ListingImageUploadField;
 
 class Listing extends DataObject
 {
@@ -46,9 +46,14 @@ class Listing extends DataObject
         'Description.Summary'           => 'Summary',
         'Category.GridFieldBreadcrumbs' => 'Category',
         'Seller.Name'                   => 'Seller',
+        'Status'                        => 'Status',
     ];
 
     private static $owns = [
+        'Images',
+    ];
+
+    private static $cascade_deletes = [
         'Images',
     ];
 
@@ -60,7 +65,8 @@ class Listing extends DataObject
 
         $fields->removeByName('Images');
 
-        $uploadField = ListingImageUploadField::create('Images', 'Upload Images');
+        $uploadField = UploadField::create('Images', 'Upload Images')
+            ->setFolderName('MarketPlace/ListingImages');
 
         $fields->addFieldToTab('Root.Main', $uploadField, 'CategoryID');
 
@@ -113,17 +119,6 @@ class Listing extends DataObject
     public function getAbsoluteLink()
     {
         return Director::absoluteURL($this->getLink());
-    }
-
-    public function onAfterUnpublish()
-    {
-        /**
-         * Unpublish images after listing is unpublished
-         */
-        foreach ($this->Images() as $image)
-        {
-            $image->doUnpublish();
-        }
     }
 
     public function populateDefaults()
