@@ -14,6 +14,7 @@ use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
+use SilverStripe\Security\Security;
 use SilverStripe\Versioned\Versioned;
 use SwiftDevLabs\MarketPlace\Model\Category;
 use SwiftDevLabs\MarketPlace\Model\ListingImage;
@@ -78,9 +79,9 @@ class Listing extends DataObject
 
     public function populateDefaults()
     {
-        if ($memberId = Member::currentUserID())
+        if ($member = Security::getCurrentUser())
         {
-            $this->SellerID = $memberId;
+            $this->SellerID = $member->ID;
         }
     }
 
