@@ -1,3 +1,6 @@
 ---
 name: marketplace
 ---
+SilverStripe\Security\Member:
+  extensions:
+    - SwiftDevLabs\Marketplace\Extension\MemberExtension
